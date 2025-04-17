@@ -1,0 +1,42 @@
+# ┌──────────── Rails (my_api) ────────────────────────────────────────────────
+# Ignore Bundler config and gems
+/my_api/.bundle/
+/my_api/vendor/bundle/
+
+# Ignore SQLite databases (if any)
+/my_api/db/*.sqlite3
+/my_api/db/*.sqlite3-journal
+
+# Ignore logs and temp files
+/my_api/log/*
+/my_api/tmp/*
+# └───────────────────────────────────────────────────────────────────────────────
+
+# ┌──────────── Vue (my_frontend) ──────────────────────────────────────────────
+# Dependency directories
+/my_frontend/node_modules/
+
+# Production build output
+/my_frontend/dist/
+
+# Local environment variables
+/my_frontend/.env.local
+/my_frontend/.env.*.local
+
+# Debug logs
+/my_frontend/npm-debug.log*
+/my_frontend/yarn-debug.log*
+/my_frontend/yarn-error.log*
+
+# IDE/editor folders
+/my_frontend/.vscode/
+/my_frontend/.idea/
+# └───────────────────────────────────────────────────────────────────────────────
+
+# ┌──────────── Generic (optional) ─────────────────────────────────────────────
+# Ignore repo‑wide env files
+.env
+
+# OS artifacts
+.DS_Store
+# └───────────────────────────────────────────────────────────────────────────────
