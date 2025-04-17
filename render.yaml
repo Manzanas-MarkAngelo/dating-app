@@ -17,8 +17,9 @@ services:
       - key: WEB_CONCURRENCY
         value: 2
 
-  - type: static
+  - type: web
     name: my-frontend
+    runtime: static
     plan: free
     buildCommand: |
       cd my_frontend
