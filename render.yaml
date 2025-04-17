@@ -1,7 +1,9 @@
+# render.yaml
 services:
+  # ── Rails API ─────────────────────────────
   - type: web
     name: my-api
-    plan: free        # ← free instance, zero cost
+    plan: free
     runtime: ruby
     path: my_api
     buildCommand: bash bin/render-build.sh
@@ -10,13 +12,18 @@ services:
       - key: RAILS_ENV
         value: production
 
+  # ── Vue Static Site ───────────────────────
   - type: web
     name: my-frontend
-    plan: free        # ← static sites are always free
+    plan: free
+    runtime: static
     path: my_frontend
     buildCommand: yarn && yarn build
-    publishPath: dist
+    staticPublishPath: dist
+    envVars:
+      - key: VUE_APP_GRAPHQL_HTTP
+        value: https://my-api.onrender.com/graphql
 
 databases:
   - name: my-api-db
-    plan: free        # ← free Postgres, zero cost
+    plan: free
