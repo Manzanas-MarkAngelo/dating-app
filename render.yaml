@@ -10,7 +10,7 @@ services:
       - key: RAILS_ENV
         value: production
 
-  - type: static
+  - type: web
     name: my-frontend
     plan: free        # ← static sites are always free
     path: my_frontend
