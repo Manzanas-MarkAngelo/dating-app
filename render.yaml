@@ -1,5 +1,5 @@
 services:
-  # Rails Backend (Ruby)
+  # Rails Backend
   - type: web
     name: my-api
     plan: free
@@ -11,17 +11,17 @@ services:
         value: production
       - key: RAILS_MASTER_KEY
         value: 6cbaaf2f7e7a8673dd93a3052de119eb
-    # Removed explicit DATABASE_URL - Render injects it automatically
 
-  # Vue.js Frontend (Static Site)
+  # Vue.js Frontend
   - type: web
     name: my-frontend
     runtime: static
-    buildCommand: cd my_frontend && yarn install && yarn build
+    buildCommand: |
+      cd my_frontend && \
+      VUE_APP_GRAPHQL_HTTP="https://my-api.onrender.com/graphql" \
+      yarn install && \
+      yarn build
     staticPublishPath: my_frontend/dist
-    envVars:
-      - key: VUE_APP_GRAPHQL_HTTP
-        value: ${my-api.RENDER_EXTERNAL_URL}/graphql
 
 databases:
   - name: my-api-db
