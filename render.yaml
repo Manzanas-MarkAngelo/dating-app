@@ -1,7 +1,7 @@
 services:
   - type: web
     name: my-api
-    plan: free
+    plan: free # Free tier for Ruby web service
     runtime: ruby
     buildCommand: cd my_api && bash bin/render-build.sh
     startCommand: cd my_api && bundle exec puma -C config/puma.rb
@@ -9,22 +9,19 @@ services:
       - key: RAILS_ENV
         value: production
       - key: DATABASE_URL
-        value: ${my-api-db.DATABASE_URL} # Link to PostgreSQL database
+        value: ${my-api-db.DATABASE_URL}
       - key: RAILS_MASTER_KEY
-        value: your_rails_master_key_here # From config/master.key
+        value: your_rails_master_key_here # Replace with your actual key!
 
-  - type: web
+  - type: static # <── Static site service type (not "web")
     name: my-frontend
-    plan: free
-    runtime: static
+    plan: free # Free tier for static sites
     buildCommand: cd my_frontend && yarn install && yarn build
     staticPublishPath: my_frontend/dist
     envVars:
       - key: VUE_APP_GRAPHQL_HTTP
-        value: ${my-api.RENDER_EXTERNAL_URL}/graphql # Dynamic backend URL
+        value: ${my-api.RENDER_EXTERNAL_URL}/graphql
 
 databases:
   - name: my-api-db
-    plan: free
-    databaseName: my_api_production
-    user: my_api_user
+    plan: free # Free tier for PostgreSQL
