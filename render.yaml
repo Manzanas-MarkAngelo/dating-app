@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: my-api
+    plan: free        # ← free instance, zero cost
+    runtime: ruby
+    path: my_api
+    buildCommand: bash bin/render-build.sh
+    startCommand: bundle exec puma -C config/puma.rb
+    envVars:
+      - key: RAILS_ENV
+        value: production
+
+  - type: static
+    name: my-frontend
+    plan: free        # ← static sites are always free
+    path: my_frontend
+    buildCommand: yarn && yarn build
+    publishPath: dist
+
+databases:
+  - name: my-api-db
+    plan: free        # ← free Postgres, zero cost
