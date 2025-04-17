@@ -1,25 +1,20 @@
-# render.yaml
 services:
-  # ── Rails API ─────────────────────────────
   - type: web
     name: my-api
     plan: free
     runtime: ruby
-    path: my_api
-    buildCommand: bash bin/render-build.sh
-    startCommand: bundle exec puma -C config/puma.rb
+    buildCommand: cd my_api && bash bin/render-build.sh
+    startCommand: cd my_api && bundle exec puma -C config/puma.rb
     envVars:
       - key: RAILS_ENV
         value: production
 
-  # ── Vue Static Site ───────────────────────
   - type: web
     name: my-frontend
     plan: free
     runtime: static
-    path: my_frontend
-    buildCommand: yarn && yarn build
-    staticPublishPath: dist
+    buildCommand: cd my_frontend && yarn && yarn build
+    staticPublishPath: my_frontend/dist
     envVars:
       - key: VUE_APP_GRAPHQL_HTTP
         value: https://my-api.onrender.com/graphql
