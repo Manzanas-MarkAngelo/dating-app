@@ -2,7 +2,6 @@ services:
   - type: web
     name: my-api
     runtime: ruby
-    plan: free
     buildCommand: "./bin/render-build.sh"
     startCommand: "bundle exec puma -C config/puma.rb"
     envVars:
@@ -17,10 +16,8 @@ services:
       - key: WEB_CONCURRENCY
         value: 2
 
-  - type: web
+  - type: static
     name: my-frontend
-    runtime: static
-    plan: free
     buildCommand: |
       cd my_frontend
       yarn install
@@ -32,4 +29,3 @@ services:
 
 databases:
   - name: my-api-db
-    plan: free
