@@ -1,27 +1,33 @@
 services:
-  # Rails Backend
   - type: web
     name: my-api
-    plan: free
     runtime: ruby
-    buildCommand: cd my_api && bash bin/render-build.sh
-    startCommand: cd my_api && bundle exec puma -C config/puma.rb
+    plan: free
+    buildCommand: "./bin/render-build.sh"
+    startCommand: "bundle exec puma -C config/puma.rb"
     envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: my-api-db
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false  # Set this in the Render Dashboard
       - key: RAILS_ENV
         value: production
-      - key: RAILS_MASTER_KEY
-        value: 6cbaaf2f7e7a8673dd93a3052de119eb
+      - key: WEB_CONCURRENCY
+        value: 2
 
-  # Vue.js Frontend
-  - type: web
+  - type: static
     name: my-frontend
-    runtime: static
+    plan: free
     buildCommand: |
-      cd my_frontend && \
-      VUE_APP_GRAPHQL_HTTP="https://my-api.onrender.com/graphql" \
-      yarn install && \
+      cd my_frontend
+      yarn install
       yarn build
     staticPublishPath: my_frontend/dist
+    envVars:
+      - key: VUE_APP_GRAPHQL_HTTP
+        value: https://my-api.onrender.com/graphql
 
 databases:
   - name: my-api-db
