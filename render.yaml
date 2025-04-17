@@ -1,6 +1,7 @@
 services:
   - type: web
     name: my-api
+    rootDir: my_api
     runtime: ruby
     plan: free
     buildCommand: "./bin/render-build.sh"
