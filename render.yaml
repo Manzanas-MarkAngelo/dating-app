@@ -1,7 +1,8 @@
 services:
+  # Rails Backend (Ruby)
   - type: web
     name: my-api
-    plan: free
+    plan: free # Required for Ruby web services
     runtime: ruby
     buildCommand: cd my_api && bash bin/render-build.sh
     startCommand: cd my_api && bundle exec puma -C config/puma.rb
@@ -11,12 +12,13 @@ services:
       - key: DATABASE_URL
         value: ${my-api-db.DATABASE_URL}
       - key: RAILS_MASTER_KEY
-        value: your_rails_master_key_here # Replace with your actual key!
+        value: your_rails_master_key_here # Replace with actual key!
 
-  - type: web          # <── Keep as "web" but specify `runtime: static`
+  # Vue.js Frontend (Static Site)
+  - type: web
     name: my-frontend
-    plan: free
-    runtime: static    # <── This defines it as a static site
+    # NO "plan" FIELD FOR STATIC SITES (free by default)
+    runtime: static
     buildCommand: cd my_frontend && yarn install && yarn build
     staticPublishPath: my_frontend/dist
     envVars:
@@ -25,4 +27,4 @@ services:
 
 databases:
   - name: my-api-db
-    plan: free
+    plan: free # Required for PostgreSQL
