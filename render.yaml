@@ -12,7 +12,7 @@ services:
       - key: DATABASE_URL
         value: ${my-api-db.DATABASE_URL}
       - key: RAILS_MASTER_KEY
-        value: your_rails_master_key_here # Replace with actual key!
+        value: 6cbaaf2f7e7a8673dd93a3052de119eb # Replace with actual key!
 
   # Vue.js Frontend (Static Site)
   - type: web
