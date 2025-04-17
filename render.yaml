@@ -1,7 +1,7 @@
 services:
   - type: web
     name: my-api
-    plan: free # Free tier for Ruby web service
+    plan: free
     runtime: ruby
     buildCommand: cd my_api && bash bin/render-build.sh
     startCommand: cd my_api && bundle exec puma -C config/puma.rb
@@ -13,9 +13,10 @@ services:
       - key: RAILS_MASTER_KEY
         value: your_rails_master_key_here # Replace with your actual key!
 
-  - type: static # <── Static site service type (not "web")
+  - type: web          # <── Keep as "web" but specify `runtime: static`
     name: my-frontend
-    plan: free # Free tier for static sites
+    plan: free
+    runtime: static    # <── This defines it as a static site
     buildCommand: cd my_frontend && yarn install && yarn build
     staticPublishPath: my_frontend/dist
     envVars:
@@ -24,4 +25,4 @@ services:
 
 databases:
   - name: my-api-db
-    plan: free # Free tier for PostgreSQL
+    plan: free
