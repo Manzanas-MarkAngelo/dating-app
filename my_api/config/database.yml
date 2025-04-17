@@ -81,9 +81,9 @@ test:
 production:
   primary: &primary_production
     <<: *default
-    database: my_api_production
-    username: my_api
-    password: <%= ENV["MY_API_DATABASE_PASSWORD"] %>
+    url: <%= ENV["DATABASE_URL"] %>  # Use the DATABASE_URL environment variable
+    pool: 5
+    timeout: 5000
   cache:
     <<: *primary_production
     database: my_api_production_cache
