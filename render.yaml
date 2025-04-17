@@ -2,22 +2,20 @@ services:
   # Rails Backend (Ruby)
   - type: web
     name: my-api
-    plan: free # Required for Ruby web services
+    plan: free
     runtime: ruby
     buildCommand: cd my_api && bash bin/render-build.sh
     startCommand: cd my_api && bundle exec puma -C config/puma.rb
     envVars:
       - key: RAILS_ENV
         value: production
-      - key: DATABASE_URL
-        value: ${my-api-db.DATABASE_URL}
       - key: RAILS_MASTER_KEY
-        value: 6cbaaf2f7e7a8673dd93a3052de119eb # Replace with actual key!
+        value: 6cbaaf2f7e7a8673dd93a3052de119eb
+    # Removed explicit DATABASE_URL - Render injects it automatically
 
   # Vue.js Frontend (Static Site)
   - type: web
     name: my-frontend
-    # NO "plan" FIELD FOR STATIC SITES (free by default)
     runtime: static
     buildCommand: cd my_frontend && yarn install && yarn build
     staticPublishPath: my_frontend/dist
@@ -27,4 +25,4 @@ services:
 
 databases:
   - name: my-api-db
-    plan: free # Required for PostgreSQL
+    plan: free
