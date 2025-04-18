@@ -47,4 +47,5 @@ group :development, :test do
 end
 
 gem "graphql", "~> 2.2" # Verified compatible with Rails 8
-gem "rack-cors" # For cross-origin requests
+gem 'rack-cors', require: 'rack/cors'
+
