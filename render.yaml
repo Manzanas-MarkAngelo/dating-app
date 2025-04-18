@@ -12,7 +12,7 @@ services:
           name: my-api-db
           property: connectionString
       - key: RAILS_MASTER_KEY
-        sync: false  # Set this in the Render Dashboard
+        sync: false
       - key: RAILS_ENV
         value: production
       - key: WEB_CONCURRENCY
@@ -27,8 +27,12 @@ services:
       yarn build
     staticPublishPath: my_frontend/dist
     envVars:
+      # Dynamically pulls your API's external URL at build time
       - key: VUE_APP_GRAPHQL_HTTP
-        value: https://my-api.onrender.com/graphql
+        fromService:
+          type: web
+          name: my-api
+          envVarKey: RENDER_EXTERNAL_URL
 
 databases:
   - name: my-api-db
