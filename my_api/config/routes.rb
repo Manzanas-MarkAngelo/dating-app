@@ -1,11 +1,15 @@
 Rails.application.routes.draw do
   post "/graphql", to: "graphql#execute"
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
+  if Rails.env.development?
+    mount GraphiQL::Rails::Engine, at: "/graphql", graphql_path: "/graphql"
+  end
+
   get "up" => "rails/health#show", as: :rails_health_check
 
-  # Defines the root path route ("/")
-  # root "posts#index"
+  get '/schema_debug', to: -> (env) {
+  require_relative '../../app/graphql/my_api_schema'
+  schema = MyApiSchema.to_definition
+  [200, {'Content-Type' => 'text/plain'}, [schema]]
+}
 end

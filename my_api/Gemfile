@@ -46,6 +46,11 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false
 end
 
-gem "graphql", "~> 2.2" # Verified compatible with Rails 8
+gem "graphql", "~> 2.3"  # Minimum recommended for Rails 8
 gem 'rack-cors', require: 'rack/cors'
 
+gem 'bcrypt', '~> 3.1.7'
+
+group :development do
+  gem "graphiql-rails", "~> 1.8"
+end

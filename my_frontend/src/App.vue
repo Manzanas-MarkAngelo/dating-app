@@ -1,10 +1,10 @@
 <script setup>
-import GraphQLTest from './components/GraphQLTest.vue'
+import RegistrationForm from './components/RegistrationForm.vue'  // Updated import
 </script>
 
 <template>
   <div class="container">
-    <GraphQLTest />
+    <RegistrationForm />  <!-- Replaced GraphQLTest with RegistrationForm -->
   </div>
 </template>
 
